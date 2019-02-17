@@ -1,0 +1,31 @@
+Welcome spg75@yandex.ru
+API Key
+Key: 209e4be4a40a421ab34160306191302   [Get Started]
+Current Plan: Free   [Change Plan]
+Status: LIVE
+Fields: Change Response Fields
+ 
+
+Regenerate key
+Has your key been compromised? You can generate a new key.
+
+Before you proceed?
+You will need to change your apps to use the new key.
+Your statistics will be reset.
+This action cannot be undone.
+I would like to regenerate api key.
+
+
+Interactive | Analytics | Documentation
+
+Current Weather
+HTTP: http://api.apixu.com/v1/current.json?key=209e4be4a40a421ab34160306191302&q=Paris
+
+HTTPS: https://api.apixu.com/v1/current.json?key=209e4be4a40a421ab34160306191302&q=Paris
+
+ 
+
+Forecast Weather
+HTTP: http://api.apixu.com/v1/forecast.json?key=209e4be4a40a421ab34160306191302&q=Paris
+
+HTTPS: https://api.apixu.com/v1/forecast.json?key=209e4be4a40a421ab34160306191302&q=Paris
