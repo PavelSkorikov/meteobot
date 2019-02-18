@@ -3,8 +3,9 @@ from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
+from kivy.uix.image import Image, AsyncImage
 from kivy.uix.boxlayout import BoxLayout
-from kivy.lang import Builder
+from kivy.uix.checkbox import CheckBox
 from kivy.properties import StringProperty
 from kivy.uix.gridlayout import GridLayout
 from kivy.properties import ObjectProperty
@@ -14,7 +15,6 @@ Config.set('graphics', 'resizable', '1')
 Config.set('graphics', 'width', '1024')
 Config.set('graphics', 'height', '720')
 
-""""""
 
 class MainForm(BoxLayout):
     search_input = ObjectProperty()
@@ -22,6 +22,11 @@ class MainForm(BoxLayout):
     date = ObjectProperty()
     tmax = ObjectProperty()
     tmin = ObjectProperty()
+    wind = ObjectProperty()
+    condition = ObjectProperty()
+    totalprecip = ObjectProperty()
+    avgvis = ObjectProperty()
+    avghumidity = ObjectProperty()
 
     def search_location(self):
         location = self.search_input.text
@@ -41,9 +46,13 @@ class MainForm(BoxLayout):
                 self.date[i].text = d[5:]
                 self.tmax[i].text = str(w['forecast']['forecastday'][i]['day']['maxtemp_c'])
                 self.tmin[i].text = str(w['forecast']['forecastday'][i]['day']['mintemp_c'])
+                self.wind[i].text = str(w['forecast']['forecastday'][i]['day']['maxwind_mph'])
+                self.condition[i].source = 'http:' + str(w['forecast']['forecastday'][i]['day']['condition']['icon'])
+                self.totalprecip[i].text = str(w['forecast']['forecastday'][i]['day']['totalprecip_mm'])
+                self.avgvis[i].text = str(w['forecast']['forecastday'][i]['day']['avgvis_km'])
+                self.avghumidity[i].text = str(w['forecast']['forecastday'][i]['day']['avghumidity'])
 
             print(w['current']['last_updated'], w['current']['temp_c'], w['current']['condition']['icon'])
-            print(w['forecast']['forecastday'][0]['date'], w['forecast']['forecastday'][0]['day'])
 
 class MeteoBotApp(App):
     pass

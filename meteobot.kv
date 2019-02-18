@@ -6,6 +6,11 @@ MainForm:
     date: [date_0, date_1, date_2, date_3, date_4, date_5, date_6]
     tmax: [tmax_0, tmax_1, tmax_2, tmax_3, tmax_4, tmax_5, tmax_6]
     tmin: [tmin_0, tmin_1, tmin_2, tmin_3, tmin_4, tmin_5, tmin_6]
+    wind: [wind_0, wind_1, wind_2, wind_3, wind_4, wind_5, wind_6]
+    condition: [condition_0, condition_1, condition_2, condition_3, condition_4, condition_5, condition_6]
+    totalprecip: [totalprecip_0, totalprecip_1, totalprecip_2, totalprecip_3, totalprecip_4, totalprecip_5, totalprecip_6]
+    avgvis: [avgvis_0, avgvis_1, avgvis_2, avgvis_3, avgvis_4, avgvis_5, avgvis_6]
+    avghumidity: [avghumidity_0, avghumidity_1, avghumidity_2, avghumidity_3, avghumidity_4, avghumidity_5, avghumidity_6]
 
     BoxLayout:
         orientation: 'horizontal'
@@ -24,7 +29,7 @@ MainForm:
             padding: [5,5,10,40]
             Label:
                 text_size: 220, None
-                text: 'Location:'
+                text: 'Населеннный пункт:'
                 font_size: 18
                 size_hint: [.9, .02]
             TextInput:
@@ -32,13 +37,13 @@ MainForm:
                 font_size: 18
                 size_hint: [.9, .03]
             Button:
-                text: 'Data'
+                text: 'Поиск'
                 font_size: 18
                 background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
                 size_hint: [.9, .03]
                 on_press: root.search_location()
             Button:
-                text: 'Graphics'
+                text: 'График'
                 font_size: 18
                 background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
                 size_hint: [.9, .03]
@@ -49,13 +54,13 @@ MainForm:
                 text: 'This is a weather widget program with a charting function.'
                 font_size: 16
             Button:
-                text: 'About'
+                text: 'О программе'
                 font_size: 18
                 size_hint: [.9, .03]
                 background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
 
             Button:
-                text: 'Quit'
+                text: 'Выход'
                 font_size: 18
                 background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
                 size_hint: [.9, .03]
@@ -66,36 +71,68 @@ MainForm:
             size_hint: [.7, 1]
             padding: [5,5,5,5]
             Label:
-                text: 'Дата:'
+                text: ''
                 color: [0, 0, 0, 1]
                 text_size: 100, None
             Label:
                 id: date_0
                 text: '-'
+                color: [59, 1, 245, 1]
             Label:
                 id: date_1
                 text: '-'
+                color: [59, 1, 245, 1]
             Label:
                 id: date_2
                 text: '-'
+                color: [59, 1, 245, 1]
             Label:
                 id: date_3
                 text: '-'
+                color: [59, 1, 245, 1]
             Label:
                 id: date_4
                 text: '-'
+                color: [59, 1, 245, 1]
             Label:
                 id: date_5
                 text: '-'
+                color: [59, 1, 245, 1]
             Label:
                 id: date_6
                 text: '-'
+                color: [59, 1, 245, 1]
             Label:
+                text: ''
 
-                text: '-'
+            Label:
+                text: ''
+            AsyncImage:
+                id: condition_0
+                source: 'faq.png'
+            AsyncImage:
+                id: condition_1
+                source: 'faq.png'
+            AsyncImage:
+                id: condition_2
+                source: 'faq.png'
+            AsyncImage:
+                id: condition_3
+                source: 'faq.png'
+            AsyncImage:
+                id: condition_4
+                source: 'faq.png'
+            AsyncImage:
+                id: condition_5
+                source: 'faq.png'
+            AsyncImage:
+                id: condition_6
+                source: 'faq.png'
+            Label:
+                text: ''
             Label:
                 text: 'T.макс, Со:'
-                color: [0, 0, 0, 1]
+                color: [209, 81, 51, 1]
                 text_size: 100, None
             Label:
                 id: tmax_0
@@ -118,8 +155,8 @@ MainForm:
             Label:
                 id: tmax_6
                 text: ''
-            Label:
-                text: ''
+            CheckBox:
+
             Label:
                 text: 'T.мин, Со:'
                 color: [0, 0, 0, 1]
@@ -145,105 +182,112 @@ MainForm:
             Label:
                 id: tmin_6
                 text: ''
-            Label:
-                text: ''
+            CheckBox:
+
             Label:
                 text: 'Ветер до, м/с:'
-                color: [0, 0, 0, 1]
+                color: [59, 1, 245, 1]
                 text_size: 100, None
             Label:
-                text: '2'
+                id: wind_0
+                text: ''
             Label:
-                text: '3'
+                id: wind_1
+                text: ''
             Label:
-                text: '4'
+                id: wind_2
+                text: ''
             Label:
-                text: '5'
+                id: wind_3
+                text: ''
             Label:
-                text: '6'
+                id: wind_4
+                text: ''
             Label:
-                text: '7'
+                id: wind_5
+                text: ''
             Label:
-                text: '8'
-            Label:
-                text: '9'
-            Label:
-                text: 'Осадки:'
-                color: [0, 0, 0, 1]
-                text_size: 100, None
-            Label:
-                text: '2'
-            Label:
-                text: '3'
-            Label:
-                text: '4'
-            Label:
-                text: '5'
-            Label:
-                text: '6'
-            Label:
-                text: '7'
-            Label:
-                text: '8'
-            Label:
-                text: '9'
+                id: wind_6
+                text: ''
+            CheckBox:
+
             Label:
                 text: 'Уровень осадков, мм:'
                 color: [0, 0, 0, 1]
                 text_size: 100, None
             Label:
-                text: '2'
+                id: totalprecip_0
+                text: ''
             Label:
-                text: '3'
+                id: totalprecip_1
+                text: ''
             Label:
-                text: '4'
+                id: totalprecip_2
+                text: ''
             Label:
-                text: '5'
+                id: totalprecip_3
+                text: ''
             Label:
-                text: '6'
+                id: totalprecip_4
+                text: ''
             Label:
-                text: '7'
+                id: totalprecip_5
+                text: ''
             Label:
-                text: '8'
-            Label:
-                text: '9'
+                id: totalprecip_6
+                text: ''
+            CheckBox:
+
             Label:
                 text: 'Видимость, км:'
                 color: [0, 0, 0, 1]
                 text_size: 100, None
             Label:
-                text: '2'
+                id: avgvis_0
+                text: ''
             Label:
-                text: '3'
+                id: avgvis_1
+                text: ''
             Label:
-                text: '4'
+                id: avgvis_2
+                text: ''
             Label:
-                text: '5'
+                id: avgvis_3
+                text: ''
             Label:
-                text: '6'
+                id: avgvis_4
+                text: ''
             Label:
-                text: '7'
+                id: avgvis_5
+                text: ''
             Label:
-                text: '8'
-            Label:
-                text: '9'
+                id: avgvis_6
+                text: ''
+            CheckBox:
+
             Label:
                 text: 'Влажность, %:'
                 color: [0, 0, 0, 1]
                 text_size: 100, None
             Label:
-                text: '2'
+                id: avghumidity_0
+                text: ''
             Label:
-                text: '3'
+                id: avghumidity_1
+                text: ''
             Label:
-                text: '4'
+                id: avghumidity_2
+                text: ''
             Label:
-                text: '5'
+                id: avghumidity_3
+                text: ''
             Label:
-                text: '6'
+                id: avghumidity_4
+                text: ''
             Label:
-                text: '7'
+                id: avghumidity_5
+                text: ''
             Label:
-                text: '8'
-            Label:
-                text: '9'
+                id: avghumidity_6
+                text: ''
+            CheckBox:
