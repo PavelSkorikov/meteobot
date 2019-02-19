@@ -37,10 +37,19 @@ class MainForm(BoxLayout):
         response = requests.get(url_apixu)
         if response.status_code == 400:
             self.info.text = 'Такое место не найдено'
+            for i in range(7):
+                self.tmax[i].text = ''
+                self.tmin[i].text = ''
+                self.wind[i].text = ''
+                self.condition[i].source = 'faq.png'
+                self.totalprecip[i].text = ''
+                self.avgvis[i].text = ''
+                self.avghumidity[i].text = ''
             return
         else:
             w = json.loads(response.text)
-            self.info.text = str(w['location'])
+            nf = 'страна: ' + str(w['location']['country']) + '\n' + 'регион: ' + str(w['location']['region']) + '\n' + 'широта: ' + str(w['location']['lat']) + '\n' + 'долгота: ' + str(w['location']['lon']) + '\n' + 'время:' + str(w['location']['localtime'])
+            self.info.text = nf
             for i in range(7):
                 d = w['forecast']['forecastday'][i]['date'].replace('-','.')
                 self.date[i].text = d[5:]
