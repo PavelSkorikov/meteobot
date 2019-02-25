@@ -1,344 +1,424 @@
-MainForm:
 
-<MainForm>:
-    search_input: search_box
-    info: info_box
-    date: [date_0, date_1, date_2, date_3, date_4, date_5, date_6]
-    tmax: [tmax_0, tmax_1, tmax_2, tmax_3, tmax_4, tmax_5, tmax_6]
-    tmin: [tmin_0, tmin_1, tmin_2, tmin_3, tmin_4, tmin_5, tmin_6]
-    wind: [wind_0, wind_1, wind_2, wind_3, wind_4, wind_5, wind_6]
-    condition: [condition_0, condition_1, condition_2, condition_3, condition_4, condition_5, condition_6]
-    totalprecip: [totalprecip_0, totalprecip_1, totalprecip_2, totalprecip_3, totalprecip_4, totalprecip_5, totalprecip_6]
-    avgvis: [avgvis_0, avgvis_1, avgvis_2, avgvis_3, avgvis_4, avgvis_5, avgvis_6]
-    avghumidity: [avghumidity_0, avghumidity_1, avghumidity_2, avghumidity_3, avghumidity_4, avghumidity_5, avghumidity_6]
+<Gerenciador>:
 
-    BoxLayout:
-        orientation: 'horizontal'
-        size_hint: [1, 1]
-        spacing: 10
-        padding: [10,10,10,10]
-        canvas:
-            Color:
-                rgb: [(113/100/2.55), (122/100/2.55), (115/100/2.55)]
-            Rectangle:
-                size: self.size
+    MainForm:
+
+        name: 'mainform'
+        search_input: search_box.text
+        info: info_box
+        date: [date_0, date_1, date_2, date_3, date_4, date_5, date_6]
+        tmax: [tmax_0, tmax_1, tmax_2, tmax_3, tmax_4, tmax_5, tmax_6]
+        tmin: [tmin_0, tmin_1, tmin_2, tmin_3, tmin_4, tmin_5, tmin_6]
+        wind: [wind_0, wind_1, wind_2, wind_3, wind_4, wind_5, wind_6]
+        condition: [condition_0, condition_1, condition_2, condition_3, condition_4, condition_5, condition_6]
+        totalprecip: [totalprecip_0, totalprecip_1, totalprecip_2, totalprecip_3, totalprecip_4, totalprecip_5, totalprecip_6]
+        avgvis: [avgvis_0, avgvis_1, avgvis_2, avgvis_3, avgvis_4, avgvis_5, avgvis_6]
+        avghumidity: [avghumidity_0, avghumidity_1, avghumidity_2, avghumidity_3, avghumidity_4, avghumidity_5, avghumidity_6]
+        voshod: [voshod_0, voshod_1, voshod_2, voshod_3, voshod_4, voshod_5, voshod_6]
+        zakat: [zakat_0, zakat_1, zakat_2, zakat_3, zakat_4, zakat_5, zakat_6]
+
         BoxLayout:
-            orientation: 'vertical'
-            size_hint: [.25, .96]
+            orientation: 'horizontal'
+            size_hint: [1, 1]
             spacing: 10
-            padding: [5,5,10,40]
-            Label:
-                text_size: 220, None
-                text: 'Населеннный пункт:'
-                font_size: 18
-                size_hint: [.9, .02]
-                color: [0, 0, 0, 1]
-            TextInput:
-                id: search_box
-                multiline: False
-                font_size: 18
-                size_hint: [.9, .035]
-                on_text_validate: root.search_location()
-            Button:
-                text: 'Поиск'
-                font_size: 18
-                background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
-                size_hint: [.9, .04]
-                on_press: root.search_location()
-            Button:
-                text: 'График'
-                font_size: 18
-                background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
-                size_hint: [.9, .04]
-            Label:
-                id: info_box
-                size_hint: [.9, .3]
-                text_size: 220, None
-                text: 'Это погодный информер на 7 дней, с возможностью построения графика.'
-                font_size: 16
-                color: [0, 0, 0, 1]
-            Button:
-                text: 'О программе'
-                font_size: 18
-                size_hint: [.9, .04]
-                background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
+            padding: [10,10,10,10]
+            canvas:
+                Color:
+                    rgb: [(138/100/2.55), (162/100/2.55), (178/100/2.55)]
+                Rectangle:
+                    size: self.size
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: [.25, .96]
+                spacing: 10
+                padding: [5,5,10,40]
+                Label:
+                    text_size: 220, None
+                    text: 'Населеннный пункт:'
+                    font_size: 18
+                    size_hint: [.9, .02]
+                    color: [0, 0, 0, 1]
+                TextInput:
+                    id: search_box
+                    focus: True
+                    multiline: False
+                    font_size: 18
+                    size_hint: [.9, .035]
+                    on_text_validate: self.parent.parent.parent.meteo_worker()
 
-            Button:
-                text: 'Выход'
-                font_size: 18
-                background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
-                size_hint: [.9, .04]
-                on_press: app.stop()
-        GridLayout:
-            cols: 9
-            rows: 9
-            size_hint: [.7, 1]
-            padding: [5,5,5,5]
-            Label:
-                text: ''
-                color: [0, 0, 0, 1]
-                text_size: 100, None
-            Label:
-                id: date_0
-                text: '-'
-                color: [59, 1, 245, 1]
-            Label:
-                id: date_1
-                text: '-'
-                color: [59, 1, 245, 1]
-            Label:
-                id: date_2
-                text: '-'
-                color: [59, 1, 245, 1]
-            Label:
-                id: date_3
-                text: '-'
-                color: [59, 1, 245, 1]
-            Label:
-                id: date_4
-                text: '-'
-                color: [59, 1, 245, 1]
-            Label:
-                id: date_5
-                text: '-'
-                color: [59, 1, 245, 1]
-            Label:
-                id: date_6
-                text: '-'
-                color: [59, 1, 245, 1]
-            Label:
-                text: ''
+                Button:
+                    text: 'Поиск'
+                    font_size: 18
+                    background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
+                    size_hint: [.9, .04]
+                    on_press: self.parent.parent.parent.meteo_worker()
+                Label:
+                    id: info_box
+                    size_hint: [.9, .3]
+                    text_size: 220, None
+                    text: 'Это погодный информер на 7 дней.'
+                    font_size: 16
+                    color: [0, 0, 0, 1]
 
-            Label:
-                text: ''
-            AsyncImage:
-                id: condition_0
-                source: 'faq.png'
-            AsyncImage:
-                id: condition_1
-                source: 'faq.png'
-            AsyncImage:
-                id: condition_2
-                source: 'faq.png'
-            AsyncImage:
-                id: condition_3
-                source: 'faq.png'
-            AsyncImage:
-                id: condition_4
-                source: 'faq.png'
-            AsyncImage:
-                id: condition_5
-                source: 'faq.png'
-            AsyncImage:
-                id: condition_6
-                source: 'faq.png'
-            Label:
-                text: ''
-            Label:
-                text: 'T.макс, Со:'
-                bold: True
-                color: [81,0,0,1]
-                text_size: 100, None
-            Label:
-                id: tmax_0
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmax_1
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmax_2
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmax_3
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmax_4
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmax_5
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmax_6
-                color: [0,0,0,1]
-                text: ''
-            CheckBox:
+                Button:
+                    text: 'О программе'
+                    font_size: 18
+                    size_hint: [.9, .04]
+                    background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
+                    on_press: self.parent.parent.parent.prog_info()
 
-            Label:
-                text: 'T.мин, Со:'
-                color: [0, 0, 81, 1]
-                bold: True
-                text_size: 100, None
-            Label:
-                id: tmin_0
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmin_1
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmin_2
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmin_3
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmin_4
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmin_5
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: tmin_6
-                color: [0,0,0,1]
-                text: ''
-            CheckBox:
+                Button:
+                    text: 'Выход'
+                    font_size: 18
+                    background_color: [(146/100/2.55), (146/100/2.55), (146/100/2.55), 1]
+                    size_hint: [.9, .04]
+                    on_press: app.stop()
+            GridLayout:
+                cols: 8
+                rows: 11
+                size_hint: [.7, 1]
+                padding: [5,5,5,5]
+                Label:
+                    text: ''
+                Label:
+                    id: date_0
+                    text: '-'
+                    bold: True
+                    color: [(249/100/2.55), (251/100/2.55), (173/100/2.55), 1]
+                Label:
+                    id: date_1
+                    text: '-'
+                    bold: True
+                    color: [(249/100/2.55), (251/100/2.55), (173/100/2.55), 1]
+                Label:
+                    id: date_2
+                    text: '-'
+                    bold: True
+                    color: [(249/100/2.55), (251/100/2.55), (173/100/2.55), 1]
+                Label:
+                    id: date_3
+                    text: '-'
+                    bold: True
+                    color: [(249/100/2.55), (251/100/2.55), (173/100/2.55), 1]
+                Label:
+                    id: date_4
+                    text: '-'
+                    bold: True
+                    color: [(249/100/2.55), (251/100/2.55), (173/100/2.55), 1]
+                Label:
+                    id: date_5
+                    text: '-'
+                    bold: True
+                    color: [(249/100/2.55), (251/100/2.55), (173/100/2.55), 1]
+                Label:
+                    id: date_6
+                    text: '-'
+                    bold: True
+                    color: [(249/100/2.55), (251/100/2.55), (173/100/2.55), 1]
 
-            Label:
-                text: 'Ветер до, м/с:'
-                bold: True
-                text_size: 100, None
-            Label:
-                id: wind_0
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: wind_1
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: wind_2
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: wind_3
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: wind_4
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: wind_5
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: wind_6
-                color: [0,0,0,1]
-                text: ''
-            CheckBox:
+                Label:
+                    text: ''
+                AsyncImage:
+                    id: condition_0
+                    source: 'faq.png'
+                AsyncImage:
+                    id: condition_1
+                    source: 'faq.png'
+                AsyncImage:
+                    id: condition_2
+                    source: 'faq.png'
+                AsyncImage:
+                    id: condition_3
+                    source: 'faq.png'
+                AsyncImage:
+                    id: condition_4
+                    source: 'faq.png'
+                AsyncImage:
+                    id: condition_5
+                    source: 'faq.png'
+                AsyncImage:
+                    id: condition_6
+                    source: 'faq.png'
 
-            Label:
-                text: 'Уровень осадков, мм:'
-                bold: True
+                Label:
+                    text: 'T.макс, Со:'
+                    bold: True
+                    color: [81,0,0,1]
+                    text_size: 100, None
+                Label:
+                    id: tmax_0
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmax_1
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmax_2
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmax_3
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmax_4
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmax_5
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmax_6
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
 
-                text_size: 100, None
-            Label:
-                id: totalprecip_0
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: totalprecip_1
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: totalprecip_2
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: totalprecip_3
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: totalprecip_4
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: totalprecip_5
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: totalprecip_6
-                color: [0,0,0,1]
-                text: ''
-            CheckBox:
+                Label:
+                    text: 'T.мин, Со:'
+                    color: [0, 0, 81, 1]
+                    bold: True
+                    text_size: 100, None
+                Label:
+                    id: tmin_0
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmin_1
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmin_2
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmin_3
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmin_4
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmin_5
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: tmin_6
+                    bold: True
+                    color: [0,0,0,1]
+                    text: ''
 
-            Label:
-                text: 'Видимость, км:'
-                bold: True
+                Label:
+                    text: 'Ветер до, м/с:'
+                    bold: True
+                    text_size: 100, None
+                Label:
+                    id: wind_0
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: wind_1
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: wind_2
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: wind_3
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: wind_4
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: wind_5
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: wind_6
+                    color: [0,0,0,1]
+                    text: ''
 
-                text_size: 100, None
-            Label:
-                id: avgvis_0
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avgvis_1
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avgvis_2
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avgvis_3
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avgvis_4
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avgvis_5
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avgvis_6
-                color: [0,0,0,1]
-                text: ''
-            CheckBox:
+                Label:
+                    text: 'Уровень осадков, мм:'
+                    bold: True
+                    text_size: 100, None
+                Label:
+                    id: totalprecip_0
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: totalprecip_1
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: totalprecip_2
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: totalprecip_3
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: totalprecip_4
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: totalprecip_5
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: totalprecip_6
+                    color: [0,0,0,1]
+                    text: ''
 
-            Label:
-                text: 'Влажность, %:'
-                bold: True
+                Label:
+                    text: 'Видимость, км:'
+                    bold: True
+                    text_size: 100, None
+                Label:
+                    id: avgvis_0
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avgvis_1
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avgvis_2
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avgvis_3
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avgvis_4
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avgvis_5
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avgvis_6
+                    color: [0,0,0,1]
+                    text: ''
 
-                text_size: 100, None
-            Label:
-                id: avghumidity_0
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avghumidity_1
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avghumidity_2
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avghumidity_3
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avghumidity_4
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avghumidity_5
-                color: [0,0,0,1]
-                text: ''
-            Label:
-                id: avghumidity_6
-                color: [0,0,0,1]
-                text: ''
-            CheckBox:
+                Label:
+                    text: 'Влажность, %:'
+                    bold: True
+                    text_size: 100, None
+                Label:
+                    id: avghumidity_0
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avghumidity_1
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avghumidity_2
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avghumidity_3
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avghumidity_4
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avghumidity_5
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: avghumidity_6
+                    color: [0,0,0,1]
+                    text: ''
+
+                Label:
+                    text: 'Восход:'
+                    bold: True
+                    text_size: 100, None
+                Label:
+                    id: voshod_0
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: voshod_1
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: voshod_2
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: voshod_3
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: voshod_4
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: voshod_5
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: voshod_6
+                    color: [0,0,0,1]
+                    text: ''
+
+                Label:
+                    text: 'Закат:'
+                    bold: True
+                    text_size: 100, None
+                Label:
+                    id: zakat_0
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: zakat_1
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: zakat_2
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: zakat_3
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: zakat_4
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: zakat_5
+                    color: [0,0,0,1]
+                    text: ''
+                Label:
+                    id: zakat_6
+                    color: [0,0,0,1]
+                    text: ''
+
+
+
