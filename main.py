@@ -16,16 +16,20 @@ class Gerenciador(ScreenManager):
 class MainForm(Screen):
 
     def search_location(self):
+        # считываем название населенного пункта
         location = self.search_input
         if location == 'Москва':
             location = 'Moscow'
+        # строим запрос к API сайта
         url_apixu = 'http://api.apixu.com/v1/forecast.json?key=209e4be4a40a421ab34160306191302&q=%s&days=10' % (
             location)
         try:
+        # скачиваем данные
             response = requests.get(url_apixu)
         except ConnectionError:
             self.info.text = 'Ошибка, проверьте соединение с интернетом!'
             return
+        # если город не найден выдаем сообщение и сбрасываем данные формы
         if response.status_code == 400:
             self.info.text = 'Такое место не найдено'
             for i in range(7):
@@ -38,6 +42,7 @@ class MainForm(Screen):
                 self.avghumidity[i].text = ''
             return
         else:
+        # если все ОК разбираем JSON ответ и заполняем поля формы
             w = json.loads(response.text)
             nf = 'страна: ' + str(w['location']['country']) + '\n' + 'регион: ' + str(w['location']['region']) + '\n' + 'широта: ' + str(w['location']['lat']) + '\n' + 'долгота: ' + str(w['location']['lon']) + '\n' + 'время:' + str(w['location']['localtime'])
             self.info.text = nf
@@ -54,14 +59,16 @@ class MainForm(Screen):
                 self.voshod[i].text = str(w['forecast']['forecastday'][i]['astro']['sunrise'])
                 self.zakat[i].text = str(w['forecast']['forecastday'][i]['astro']['sunset'])
     def meteo_worker(self):
+        # запускаем загрузку данных в отдельном потоке, чтобы программа не зависла при плохом интернете
         t = Thread(target=self.search_location)
         t.start()
         t.join()
     def prog_info(self):
-        self.info.text = 'Эта программа создана в целях изучения python + kivy. Автор - Скориков П.Г. spg75@yandex.ru'
+        self.info.text = 'Данные берутся с сайта apixu.com.'+'\n'+'Автор - Скориков П.Г. spg75@yandex.ru'
 
 class MeteoBotApp(App):
     def build(self):
+        self.icon = 'icon.png'
         return Gerenciador()
 
 if __name__ == "__main__":
