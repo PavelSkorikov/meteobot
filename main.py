@@ -21,7 +21,7 @@ class MainForm(Screen):
         if location == 'Москва':
             location = 'Moscow'
         # строим запрос к API сайта
-        url_apixu = 'http://api.apixu.com/v1/forecast.json?key=209e4be4a40a421ab34160306191302&q=%s&days=10' % (
+        url_apixu = 'http://api.apixu.com/v1/forecast.json?key=********&q=%s&days=10' % (
             location)
         try:
         # скачиваем данные
